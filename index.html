@@ -15,15 +15,24 @@
     </header>
 
     <main>
-        <div>
-            <form class="search" onsubmit="onSearchBook(event)">
+        <!-- <div> -->
+            <section class="filter">
+                <input class="filter-text" oninput="onSetFilterBy(this)" type="text" placeholder="Search">
+                <!-- <button onclick="onResetFilter()">clear</button> -->
+                <button class="clear" onclick="onClearSearch(event)">Clear</button>
+
+                <button class="add" onclick="onAddBook()">Add Book</button>
+                
+                <!-- <button onclick="onAddBook()">Add Book</button> -->
+            </section>
+            <!-- <form class="search" onsubmit="onSearchBook(event)">
                 <input type="text" placeholder="Search">
             </form>
             <button class="clear" onclick="onClearSearch(event)">Clear</button>
-        </div>
-        <div>
+        </div> -->
+        <!-- <div>
             <button class="add" onclick="onAddBook()">Add Book</button>
-        </div>
+        </div> -->
 
         <table>
             <thead>

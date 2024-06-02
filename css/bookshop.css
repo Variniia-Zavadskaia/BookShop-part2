@@ -36,14 +36,27 @@ main {
     min-height: calc(100vh - 10vh - 1.5rem);
 }
 
-div {
+/* div {
     display: flex;
     padding: 5px;
     background-color: rgb(154, 178, 241);
     margin-block-end: 5px;
     gap: 5px;
+} */
+
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px;
+    background-color: rgb(154, 178, 241);
+    margin-block-end: 10px;
 }
 
+.filter button:last-of-type {
+    margin-inline-start: auto;
+}
 .success-modal {
     display: flex;
     position: fixed;

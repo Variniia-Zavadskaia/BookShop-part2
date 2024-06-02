@@ -98,9 +98,9 @@ function onShowDetails(bookId) {
     const elModal = document.querySelector('.modal');
     const elData = elModal.querySelector('pre');
 
-    const todo = getBookById(bookId);
+    const book = getBookById(bookId);
 
-    elData.innerText = JSON.stringify(todo, null, 2);
+    elData.innerText = JSON.stringify(book, null, 2);
     elModal.showModal();
 }
 
