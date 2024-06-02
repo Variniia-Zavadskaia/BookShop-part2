@@ -22,7 +22,7 @@
                 <input oninput="onSetFilterBy({ title: this.value })" placeholder="Title" type="text">
                 <label>
                     <span>Select Rating:</span>
-                    <select  min="1" max="5" value="0" onchange="onSetFilterBy({ minRating: +this.value })">
+                    <select min="1" max="5" value="0" onchange="onSetFilterBy({ minRating: +this.value })">
                         <option value="">Rating</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -30,8 +30,8 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                </label>  
-               
+                </label>
+
             </div>
 
             <div class="sort-by">
@@ -53,41 +53,23 @@
                     </label>
                 </form>
             </div>
-           
+
         </fieldset>
         <button onclick="onClearSearch()">Clear</button>
     </section>
 
     <section class="filter">
-        <!-- <input class="filter-text" oninput="onSetFilterBy(this)" type="text" placeholder="Search">
-        <button onclick="onClearSearch()">Clear</button> -->
-
         <button onclick="onAddBook()">Add Book</button>
         <!-- <button title="Add Car" onclick="onAddBook()">Add Book</button> -->
     </section>
 
-    <section>
-        <div class="actions">
-            <!-- <button title="Add Car" onclick="onAddCar()">Add Car</button> -->
-            <button title="Prev Page" onclick="onPrevPage()">Prev Page</button>
-            <button title="Next Page" onclick="onNextPage()">Next Page</button>
-        </div>
-        <section class="cars-container"></section>
-    </section>
-
-    <!-- <div class="user-msg">
-        <p>baba</p>
-    </div> -->
-
     <main>
         <table>
             <thead>
-
                 <th class="title">Title</th>
                 <th class="price">Price</th>
                 <th class="rating">Rating</th>
                 <th class="active">Action</th>
-
                 <tr class="no-matches hidden">
                     <td colspan="3">No Matching Books Were Found...</td>
                 </tr>
@@ -102,13 +84,13 @@
             </form>
         </dialog>
 
-        <!-- <dialog class="book-details-modal">
-			<h3></h3>
-			<h4>Maximal Speeding <span></span> </h4>
-            <img src="" alt="">
-			<p></p>
-			<button onclick="onCloseCarDetailsModal()">Close</button>
-		</dialog> -->
+        <section>
+            <div class="actions">
+                <button title="Prev Page" onclick="onPrevPage()">Prev Page</button>
+                <button title="Next Page" onclick="onNextPage()">Next Page</button>
+            </div>
+            <section class="books-container"></section>
+        </section>
 
         <dialog class="book-edit-modal">
             <form onsubmit="onSaveBook()" method="dialog">
@@ -117,14 +99,14 @@
                 <input class="new-title" placeholder="Title" type="text">
                 <input class="new-price" type="number" placeholder="Enter price">
                 <div class="actions">
-                    <button type="button" onclick="onCloseBookEditModal()">Cancel</button>
-                    <button>Save</button>
+                    <button class="cancel" type="button" onclick="onCloseBookEditModal()">Cancel</button>
+                    <button class="save">Save</button>
                 </div>
             </form>
         </dialog>
-        
+
     </main>
-    
+
     <footer>
         <p>Coffeerights 2024</p>
         <p>
@@ -136,6 +118,8 @@
             <span class="cheap">0</span>
         </p>
     </footer>
+
+    <div class="user-msg"></div>
 
     <script src="js/services/util.service.js"></script>
     <script src="js/services/storage.service.js"></script>

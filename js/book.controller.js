@@ -152,7 +152,7 @@ function onRemoveBook(bookId) {
     removeBook(bookId);
 
     renderBooks();
-    showUserMsg(`Book ${bookId} deleted...`);
+    flashMsg(`Book Deleted`);
 }
 
 function onUpdateBook(bookId) {
@@ -196,8 +196,9 @@ function onSaveBook() {
 
     resetBookEditModal()
     renderBooks()
-    // flashMsg(`Car Saved (id: ${car.id})`)
+    flashMsg(`Book Saved (id: ${book.id})`)
 }
+
 function resetBookEditModal() {
     const elForm = document.querySelector('.book-edit-modal form')
 
@@ -278,18 +279,18 @@ function setQueryParams() {
 
     window.history.pushState({ path: newUrl }, '', newUrl)
 }
-// function showUserMsg(txt) {
-//     const elMsg = document.querySelector('.user-msg')
-//     const elMsgTxt = document.querySelector('.user-msg p')
-
-//     elMsgTxt.innerText = txt
-//     elMsg.classList.add('shown')
-//     setTimeout(() => elMsg.classList.remove('shown'), 2000)
-// }
 
 function onCloseBookEditModal() {
     gBookToEdit = null
 
     document.querySelector('.book-edit-modal').close()
     resetBookEditModal()
+}
+
+function flashMsg(msg) {
+    const el = document.querySelector('.user-msg')
+
+    el.innerText = msg
+    el.classList.add('open')
+    setTimeout(() => el.classList.remove('open'), 3000)
 }
