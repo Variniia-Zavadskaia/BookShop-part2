@@ -56,7 +56,7 @@ function getCheapBookCount() {
 function _filterBooks(filterBy) {
     var books = gBooks;
 
-    if (filterBy.title) books = books.filter(book => book.title.toLowerCase().includes(filterBy.title))
+    if (filterBy.title) books = books.filter(book => book.title.toLowerCase().includes(filterBy.title.toLowerCase()))
     if (filterBy.minRating) books = books.filter(book => book.rating >= filterBy.minRating)
     return books
 }

@@ -7,6 +7,7 @@ const gQueryOptions = {
 }
 
 function onInit() {
+    readQueryParams();
     renderBooks();
 }
 
@@ -65,7 +66,7 @@ function onSetFilterBy(filterBy) {
 
     console.log(gQueryOptions);
     // gQueryOptions.page.idx = 0
-    // setQueryParams()
+    setQueryParams()
     renderBooks()
 
 
@@ -86,7 +87,7 @@ function onSetSortBy() {
     if(sortField === 'minRating') gQueryOptions.sortBy = { minRating: sortDir }
 
     // gQueryOptions.page.idx = 0
-    // setQueryParams()
+    setQueryParams()
     renderBooks()
 }
 
@@ -156,6 +157,64 @@ function onShowDetails(bookId) {
     elModal.showModal();
 }
 
+function readQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
+
+    gQueryOptions.filterBy = {
+        title: queryParams.get('title') || '',
+        minRating: +queryParams.get('minRating') || 0
+    }
+
+    if(queryParams.get('sortBy')) {
+        const prop = queryParams.get('sortBy')
+        const dir = queryParams.get('sortDir')
+        gQueryOptions.sortBy[prop] = dir
+    }
+
+    // if(queryParams.get('pageIdx')) {
+    //     gQueryOptions.page.idx = +queryParams.get('pageIdx')
+    //     gQueryOptions.page.size = +queryParams.get('pageSize')
+    // }
+    renderQueryParams()
+}
+
+function renderQueryParams() {
+    
+    // document.querySelector('.filter-by input[type="text"]').value = gQueryOptions.filterBy.title
+    // document.querySelector('.filter-by select').value = gQueryOptions.filterBy.minRating
+    
+    const sortKeys = Object.keys(gQueryOptions.sortBy)
+    const sortBy = sortKeys[0]
+    const dir = gQueryOptions.sortBy[sortKeys[0]]
+
+    document.querySelector('.sort-by select').value = sortBy || ''
+    document.querySelector('.sort-desc').checked = (dir === -1) ? 'true' : 'false'
+}
+
+function setQueryParams() {
+    const queryParams = new URLSearchParams()
+
+    queryParams.set('title', gQueryOptions.filterBy.title)
+    queryParams.set('minRating', gQueryOptions.filterBy.minRating)
+
+    const sortKeys = Object.keys(gQueryOptions.sortBy)
+    if(sortKeys.length) {
+        queryParams.set('sortBy', sortKeys[0])
+        queryParams.set('sortDir', gQueryOptions.sortBy[sortKeys[0]])
+    }
+
+    // if(gQueryOptions.page) {
+    //     queryParams.set('pageIdx', gQueryOptions.page.idx)
+    //     queryParams.set('pageSize', gQueryOptions.page.size)
+    // }
+
+    const newUrl = 
+        window.location.protocol + "//" + 
+        window.location.host + 
+        window.location.pathname + '?' + queryParams.toString()
+
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
 function showUserMsg(txt) {
     const elMsg = document.querySelector('.user-msg')
     const elMsgTxt = document.querySelector('.user-msg p')
