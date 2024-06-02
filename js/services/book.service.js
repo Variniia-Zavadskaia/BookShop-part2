@@ -4,15 +4,30 @@ var gBooks;
 _createBooks();
 
 function getBooks(filterBy) {
-    if(!filterBy) return gBooks;
+    // if(!filterBy) return gBooks;
     return gBooks.filter(book => {
         const titleLower = book.title.toLowerCase()
-        console.log(titleLower);
+        // console.log(titleLower);
         filterBy = filterBy.toLowerCase()
-        console.log(filterBy);
+        // console.log(filterBy);
         return titleLower.includes(filterBy);
     })
+
+    // const regex = new RegExp(filterBy, 'i')
+    // return gBooks.filter(book => regex.test(book.title))
+     // return gBooks.filter(book => book.title.toLowerCase().includes(filterBy.toLowerCase()))
 }
+
+// function getStats() {
+//     return gBooks.reduce((acc, book) => {
+        
+//         if(book.price <= 50) acc.cheap++
+//         else if(book.price <= 70) acc.moderate++
+//         else acc.expensive++
+
+//         return acc
+//     }, { expensive: 0, moderate: 0, cheap: 0 })
+// }
 
 function getBookById(bookId) {
     const book = gBooks.find(book => book.id === bookId);

@@ -4,12 +4,19 @@ var gFilterBy = '';
 
 function onInit() {
     renderBooks();
-    onHideSuccessMsg();
 }
 
 function renderBooks() {
-    const books = getBooks(gFilterBy);
     const elBooksList = document.querySelector('.book-list');
+    const elNoResults = document.querySelector('.no-matches')
+    
+    const books = getBooks(gFilterBy);
+
+    if(books.length === 0) {
+        elNoResults.classList.remove('hidden')
+    } else {
+        elNoResults.classList.add('hidden')
+    }
 
     const strHtmls = books.map(book =>
         `<tr>
@@ -19,7 +26,7 @@ function renderBooks() {
 
             <td class="active">
                 <button class="read" onclick="onShowDetails('${book.id}')">Read</button>
-                <button class="update" onclick="onUpdateBook('${book.id}')">Update</button>
+                <button class="update" onclick="onUpdateBook('${book.id}', ${book.price})">Update</button>
                 <button class="delete" onclick="onRemoveBook('${book.id}')" class="delete">Delete</button>
             </td>
         </tr>`)
@@ -27,6 +34,11 @@ function renderBooks() {
 
     renderStats();
 }
+
+// function renderStats() {
+//     const stats = getStats()
+//     console.log(stats)
+// }
 
 function renderStats() {
     const elFooter = document.querySelector('footer')
@@ -40,13 +52,9 @@ function renderStats() {
     elCheapCount.innerText = getCheapBookCount()
 }
 
-function onSearchBook(ev) {
-    ev.preventDefault();
-
-    const elInput = document.querySelector('input');
-    const title = elInput.value;
-
-    gFilterBy = title;
+function onSetFilterBy(elInput) {
+    
+    gFilterBy = elInput.value
     renderBooks()
 }
 
@@ -65,16 +73,18 @@ function onRemoveBook(bookId) {
     removeBook(bookId);
 
     renderBooks();
-    successMsg('Removed');
+    showUserMsg(`Book ${bookId} deleted...`);
 }
 
 function onUpdateBook(bookId) {
 
     var newPrice = +prompt('New price:');
+    if(!newPrice) return
+
     updatePrice(bookId, newPrice);
 
     renderBooks();
-    successMsg('Price Updated');
+    showUserMsg(`Book ${bookId} updated`);
 }
 
 function onAddBook() {
@@ -91,7 +101,7 @@ function onAddBook() {
     addBook(newTitle, newPrice);
 
     renderBooks();
-    successMsg('Added');
+    showUserMsg(`Book ${bookId} added`);
 }
 
 function onShowDetails(bookId) {
@@ -104,17 +114,11 @@ function onShowDetails(bookId) {
     elModal.showModal();
 }
 
-function onShowSuccessMsg(actStr) {
-    console.log(actStr);
-    var elModal = document.querySelector('.success-modal');
-    elModal.style.display = 'block';
-    console.log(elModal);
-    var elModalSpan = document.querySelector('span');
-    elModalSpan.innerText = 'Book ' + actStr + ' Successfuly'
-    console.log(elModalSpan.innerText);
-}
+function showUserMsg(txt) {
+    const elMsg = document.querySelector('.user-msg')
+    const elMsgTxt = document.querySelector('.user-msg p')
 
-function onHideSuccessMsg() {
-    var elModal = document.querySelector('.success-modal');
-    elModal.style.display = 'none';
+    elMsgTxt.innerText = txt
+    elMsg.classList.add('shown')
+    setTimeout(() => elMsg.classList.remove('shown'), 2000)
 }
