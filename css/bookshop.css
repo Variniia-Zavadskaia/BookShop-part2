@@ -6,7 +6,7 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0 1em;
     line-height: 1.4;
-    color: #777;
+    color: #313030;
     height: 100%;
     overflow-x: hidden;
 }
@@ -27,6 +27,28 @@ header {
 
 footer {
     justify-content: space-between;
+}
+
+.book-filter {
+    /* color: white; */
+	background-color: rgb(170, 188, 213);
+	padding: 20px;
+	margin: 20px 0;
+}
+
+.book-filter fieldset {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.filter-by select,
+.sort-by select {
+	margin-inline-end: 2em;
+}
+
+.filter-by select {
+	text-transform: capitalize;
 }
 
 main {

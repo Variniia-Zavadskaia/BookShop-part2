@@ -14,27 +14,64 @@
         <h1>Book Shop</h1>
     </header>
 
+    <section class="book-filter">
+        <fieldset>
+            <legend>Filter & Sorting</legend>
+
+            <div class="filter-by">
+                <input oninput="onSetFilterBy({ title: this.value })" placeholder="Title" type="text">
+                <label>
+                    <span>Select Rating:</span>
+        
+                    <select  min="1" max="5" value="0" onchange="onSetFilterBy({ minRating: +this.value })">
+                        <option value="">Rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>  
+               
+            </div>
+
+            <div class="sort-by">
+                <select onchange="onSetSortBy()">
+                    <option value="">Select Sorting</option>
+                    <option value="title">By Title</option>
+                    <option value="minRating">By Ratihg</option>
+                </select>
+                <label>
+                    <span>Descending</span>
+                    <input class="sort-desc" type="checkbox" oninput="onSetSortBy()" />
+                </label>
+            </div>
+           
+        </fieldset>
+        <button onclick="onClearSearch()">Clear</button>
+    </section>
+
     <div class="user-msg">
         <p>baba</p>
     </div>
 
     <main>
         <section class="filter">
-            <input class="filter-text" oninput="onSetFilterBy(this)" type="text" placeholder="Search">
-            <button onclick="onClearSearch()">Clear</button>
+            <!-- <input class="filter-text" oninput="onSetFilterBy(this)" type="text" placeholder="Search">
+            <button onclick="onClearSearch()">Clear</button> -->
 
             <button onclick="onAddBook()">Add Book</button>
 
         </section>
-        
+
         <table>
             <thead>
-                
-                    <th class="title">Title</th>
-                    <th class="price">Price</th>
-                    <th class="rating">Rating</th>
-                    <th class="active">Action</th>
-                
+
+                <th class="title">Title</th>
+                <th class="price">Price</th>
+                <th class="rating">Rating</th>
+                <th class="active">Action</th>
+
                 <tr class="no-matches hidden">
                     <td colspan="3">No Matching Books Were Found...</td>
                 </tr>

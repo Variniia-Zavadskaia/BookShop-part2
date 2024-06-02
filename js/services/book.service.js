@@ -1,26 +1,33 @@
 'use strict'
 
+const STORAGE_KEY = 'bookDB'
+
 var gBooks;
 _createBooks();
 
-function getBooks(filterBy) {
-    // if(!filterBy) return gBooks;
-    return gBooks.filter(book => {
-        const titleLower = book.title.toLowerCase()
-        // console.log(titleLower);
-        filterBy = filterBy.toLowerCase()
-        // console.log(filterBy);
-        return titleLower.includes(filterBy);
-    })
+function getBooks(options = {}) {
+    console.log(options);
+    const filterBy = options.filterBy;
+    const sortBy = options.sortBy;
 
-    // const regex = new RegExp(filterBy, 'i')
-    // return gBooks.filter(book => regex.test(book.title))
-     // return gBooks.filter(book => book.title.toLowerCase().includes(filterBy.toLowerCase()))
+    var books = gBooks;
+
+    books = _filterBooks(filterBy);
+
+    if (sortBy.title) {
+        books = books.toSorted((b1, b2) => b1.title.localeCompare(b2.title) * sortBy.title);
+    }
+    if (sortBy.minRating) {
+        books = books.toSorted((b1, b2) => (b1.rating - b2.rating) * sortBy.minRating);
+    }
+
+    return books
+
 }
 
 // function getStats() {
 //     return gBooks.reduce((acc, book) => {
-        
+
 //         if(book.price <= 50) acc.cheap++
 //         else if(book.price <= 70) acc.moderate++
 //         else acc.expensive++
@@ -46,12 +53,20 @@ function getCheapBookCount() {
     return gBooks.filter(book => book.price <= 80).length
 }
 
+function _filterBooks(filterBy) {
+    var books = gBooks;
+
+    if (filterBy.title) books = books.filter(book => book.title.toLowerCase().includes(filterBy.title))
+    if (filterBy.minRating) books = books.filter(book => book.rating >= filterBy.minRating)
+    return books
+}
+
 function removeBook(bookId) {
 
     const idx = gBooks.findIndex(book => book.id === bookId);
     gBooks.splice(idx, 1);
 
-    _saveBooks();
+    _saveBooksToStorage();
 }
 
 function updatePrice(bookId, newPrice) {
@@ -59,7 +74,7 @@ function updatePrice(bookId, newPrice) {
     const idx = gBooks.findIndex(book => book.id === bookId);
     gBooks[idx].price = newPrice;
 
-    _saveBooks();
+    _saveBooksToStorage();
 }
 
 function addBook(newTitle, newPrice) {
@@ -67,7 +82,7 @@ function addBook(newTitle, newPrice) {
 
     gBooks.push(newBook);
 
-    _saveBooks();
+    _saveBooksToStorage();
 }
 
 function successMsg(actStr) {
@@ -77,7 +92,7 @@ function successMsg(actStr) {
 }
 
 function _createBooks() {
-    gBooks = loadFromStorage('books');
+    gBooks = loadFromStorage(STORAGE_KEY);
 
     if (gBooks && gBooks.length !== 0) return;
 
@@ -86,19 +101,19 @@ function _createBooks() {
         _createBook('Martin Eden', 150),
         _createBook('The Shining', 75)
     ]
-    _saveBooks()
+    _saveBooksToStorage()
 }
 
-function _createBook(title, price) {
+function _createBook(title, price, rating = getRandomInt(1, 6)) {
     return {
         id: makeId(),
         title: title,
         price: price,
-        rating: getRandomInt(1, 6),
+        rating: rating,
         // imgUrl: 'lori-ipsi.jpg'
     }
 }
 
-function _saveBooks() {
-    saveToStorage('books', gBooks);
+function _saveBooksToStorage() {
+    saveToStorage(STORAGE_KEY, gBooks);
 }

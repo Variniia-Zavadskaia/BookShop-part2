@@ -1,6 +1,10 @@
 'use strict'
 
-var gFilterBy = '';
+const gQueryOptions = {
+    filterBy: { title: '', minRating: 0 },
+    sortBy: {},
+    // page: { idx: 0, size: 3 }
+}
 
 function onInit() {
     renderBooks();
@@ -10,7 +14,7 @@ function renderBooks() {
     const elBooksList = document.querySelector('.book-list');
     const elNoResults = document.querySelector('.no-matches')
     
-    const books = getBooks(gFilterBy);
+    const books = getBooks(gQueryOptions);
 
     if(books.length === 0) {
         elNoResults.classList.remove('hidden')
@@ -51,18 +55,57 @@ function renderStats() {
     elCheapCount.innerText = getCheapBookCount()
 }
 
-function onSetFilterBy(elInput) {
-    
-    gFilterBy = elInput.value
+function onSetFilterBy(filterBy) {
+    if(filterBy.title !== undefined) {
+        gQueryOptions.filterBy.title = filterBy.title
+    }
+    if(filterBy.minRating !== undefined) {
+        gQueryOptions.filterBy.minRating = filterBy.minRating
+    }
+
+    console.log(gQueryOptions);
+    // gQueryOptions.page.idx = 0
+    // setQueryParams()
+    renderBooks()
+
+
+    // gFilterBy = elInput.value
+    // renderBooks()
+}
+
+function onSetSortBy() {
+    const elSortField = document.querySelector('.sort-by select')
+    const elSortDir = document.querySelector('.sort-by input')
+
+    const sortField = elSortField.value
+    const sortDir = elSortDir.checked ? -1 : 1
+
+    gQueryOptions.sortBy = {}
+
+    if(sortField === 'title') gQueryOptions.sortBy = { title: sortDir }
+    if(sortField === 'minRating') gQueryOptions.sortBy = { minRating: sortDir }
+
+    // gQueryOptions.page.idx = 0
+    // setQueryParams()
     renderBooks()
 }
 
-function onClearSearch(ev) {
-    ev.preventDefault();
+function onClearSearch() {
+    // ev.preventDefault();
+    const elTitleInput= document.querySelector('.filter-by input');
+    elTitleInput.value = '';
+    gQueryOptions.filterBy.title = '';
 
-    const elInput = document.querySelector('input');
-    elInput.value = '';
-    gFilterBy = '';
+    const elRatingSelect = document.querySelector('.filter-by select');
+    elRatingSelect.value = '';
+    gQueryOptions.filterBy.minRating = 0;
+
+    const elSortField = document.querySelector('.sort-by select');
+    elSortField.value = '';
+    const elSortDir = document.querySelector('.sort-by input');
+    elSortDir.checked = false;
+    // elSsection.value = '';
+    // gFilterBy = '';
 
     renderBooks()
 }
