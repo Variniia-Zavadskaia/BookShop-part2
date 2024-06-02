@@ -156,33 +156,24 @@ function onRemoveBook(bookId) {
 }
 
 function onUpdateBook(bookId) {
+    gBookToEdit = getBookById(bookId)
 
-    var newPrice = +prompt('New price:');
-    if(!newPrice) return
+    const elModal = document.querySelector('.book-edit-modal')
+    const elModalH2 = document.querySelector('.book-edit-modal h2')
+    const elModalTitle = document.querySelector('.new-title')
 
-    updatePrice(bookId, newPrice);
+    elModalH2.innerText = 'Update book details'
+    elModalTitle.value = gBookToEdit.title;
 
-    renderBooks();
-    showUserMsg(`Book ${bookId} updated`);
+    elModal.showModal()
+
 }
 
 function onAddBook() {
-    // var newTitle = prompt('New title:');
-    // var newPrice = +prompt('New price:');
-
-    // if (newTitle === '' || newPrice === 0) {
-    //     alert('Invalid value')
-    //     return
-    // }
-
-    // console.log(newTitle, newPrice);
-
-    // addBook(newTitle, newPrice);
-
-    // renderBooks();
-    // showUserMsg(`Book ${bookId} added`);
-
     const elModal = document.querySelector('.book-edit-modal')
+    const elModalH2 = document.querySelector('.book-edit-modal h2')
+
+    elModalH2.innerText = 'Add new book'
     elModal.showModal()
 }
 
@@ -196,12 +187,12 @@ function onSaveBook() {
     const newPrice = +elPrice.value
 
     // TODO Save the car
-    // if(gBookToEdit) {
-    //     var book = updateBook(gBookToEdit.id, newTitle, newPrice)
-    //     gBookToEdit = null
-    // } else {
+    if(gBookToEdit) {
+        var book = updateBook(gBookToEdit.id, newTitle, newPrice)
+        gBookToEdit = null
+    } else {
         var book = addBook(newTitle, newPrice)
-    // }
+    }
 
     resetBookEditModal()
     renderBooks()
@@ -297,7 +288,7 @@ function setQueryParams() {
 // }
 
 function onCloseBookEditModal() {
-    // gCarToEdit = null
+    gBookToEdit = null
 
     document.querySelector('.book-edit-modal').close()
     resetBookEditModal()

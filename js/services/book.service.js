@@ -85,17 +85,9 @@ function removeBook(bookId) {
     _saveBooksToStorage();
 }
 
-function updatePrice(bookId, newPrice) {
-
-    const idx = gBooks.findIndex(book => book.id === bookId);
-    gBooks[idx].price = newPrice;
-
-    _saveBooksToStorage();
-}
-
 function updateBook(bookId, newTitle, newPrice) {
     const book = gBooks.find(book => book.id === bookId)
-    book.title = newTitle
+    if (newTitle) book.title = newTitle
     book.price = newPrice
 
     _saveBooksToStorage()
