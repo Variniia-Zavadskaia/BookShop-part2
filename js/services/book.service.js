@@ -9,6 +9,7 @@ function getBooks(options = {}) {
     console.log(options);
     const filterBy = options.filterBy;
     const sortBy = options.sortBy;
+    const page = options.page;
 
     var books = gBooks;
 
@@ -20,6 +21,12 @@ function getBooks(options = {}) {
     if (sortBy.minRating) {
         books = books.toSorted((b1, b2) => (b1.rating - b2.rating) * sortBy.minRating);
     }
+    if (sortBy.price) {
+        books = books.toSorted((b1, b2) => (b1.price - b2.price) * sortBy.price)
+    }
+
+    const idx = page.idx * page.size
+    books = books.slice(idx, idx + page.size)
 
     return books
 
@@ -53,11 +60,20 @@ function getCheapBookCount() {
     return gBooks.filter(book => book.price <= 80).length
 }
 
+function getPageCount(options) {
+    const filterBy = options.filterBy
+    const page = options.page
+
+    const bookCount = _filterBooks(filterBy).length
+    return Math.ceil(bookCount / page.size)
+}
+
 function _filterBooks(filterBy) {
     var books = gBooks;
 
     if (filterBy.title) books = books.filter(book => book.title.toLowerCase().includes(filterBy.title.toLowerCase()))
     if (filterBy.minRating) books = books.filter(book => book.rating >= filterBy.minRating)
+    if (filterBy.minPrice) books = books.filter(book => book.price >= filterBy.minPrice)
     return books
 }
 
@@ -97,14 +113,26 @@ function _createBooks() {
     if (gBooks && gBooks.length !== 0) return;
 
     gBooks = [
-        _createBook('Lord of the Rings', 220),
-        _createBook('Martin Eden', 150),
-        _createBook('The Shining', 75)
+        _createBook('Lord of the Rings'),
+        _createBook('Lord of the Earings'),
+        _createBook('Lord of the Chains'),
+        _createBook('Martin Eden'),
+        _createBook('John Eden'),
+        _createBook('Martin Lumen'),
+        _createBook('The Shining'),
+        _createBook('The Darkness'),
+        _createBook('Twilight'),
+        _createBook('Mumu'),
+        _createBook('Muma'),
+        _createBook('Mumami'),
+        _createBook('Java Script'),
+        _createBook('Java'),
+        _createBook('C++'),
     ]
     _saveBooksToStorage()
 }
 
-function _createBook(title, price, rating = getRandomInt(1, 6)) {
+function _createBook(title, price = getRandomInt(50, 300), rating = getRandomInt(1, 6)) {
     return {
         id: makeId(),
         title: title,

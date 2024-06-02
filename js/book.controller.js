@@ -1,9 +1,9 @@
 'use strict'
 
 const gQueryOptions = {
-    filterBy: { title: '', minRating: 0 },
+    filterBy: { title: '', minPrice: 0, minRating: 0 },
     sortBy: {},
-    // page: { idx: 0, size: 3 }
+    page: { idx: 0, size: 5 }
 }
 
 function onInit() {
@@ -39,6 +39,10 @@ function renderBooks() {
     renderStats();
 }
 
+function renderTable(books){}
+
+function renderGrid(books){}
+
 // function renderStats() {
 //     const stats = getStats()
 //     console.log(stats)
@@ -63,9 +67,12 @@ function onSetFilterBy(filterBy) {
     if(filterBy.minRating !== undefined) {
         gQueryOptions.filterBy.minRating = filterBy.minRating
     }
+    if(filterBy.minPrice !== undefined){
+        gQueryOptions.filterBy.minPrice = filterBy.minPrice
+    }
 
     console.log(gQueryOptions);
-    // gQueryOptions.page.idx = 0
+    gQueryOptions.page.idx = 0
     setQueryParams()
     renderBooks()
 
@@ -84,9 +91,38 @@ function onSetSortBy() {
     gQueryOptions.sortBy = {}
 
     if(sortField === 'title') gQueryOptions.sortBy = { title: sortDir }
-    if(sortField === 'minRating') gQueryOptions.sortBy = { minRating: sortDir }
+    if(sortField === 'rating') gQueryOptions.sortBy = { minRating: sortDir }
+    if(sortField === 'price') gQueryOptions.sortBy = { price: sortDir }
 
-    // gQueryOptions.page.idx = 0
+    gQueryOptions.page.idx = 0
+    setQueryParams()
+    renderBooks()
+}
+
+function onNextPage() {
+    const pageCount = getPageCount(gQueryOptions)
+
+    console.log(pageCount, gQueryOptions.page.idx);
+
+    if(gQueryOptions.page.idx === pageCount - 1) {
+        gQueryOptions.page.idx = 0
+    } else {
+        gQueryOptions.page.idx++
+    }
+    setQueryParams()
+    renderBooks()
+}
+
+function onPrevPage() {
+    const pageCount = getPageCount(gQueryOptions)
+
+    console.log(pageCount, gQueryOptions.page.idx);
+
+    if(gQueryOptions.page.idx === 0) {
+        gQueryOptions.page.idx = pageCount - 1
+    } else {
+        gQueryOptions.page.idx--
+    }
     setQueryParams()
     renderBooks()
 }
@@ -171,17 +207,17 @@ function readQueryParams() {
         gQueryOptions.sortBy[prop] = dir
     }
 
-    // if(queryParams.get('pageIdx')) {
-    //     gQueryOptions.page.idx = +queryParams.get('pageIdx')
-    //     gQueryOptions.page.size = +queryParams.get('pageSize')
-    // }
+    if(queryParams.get('pageIdx')) {
+        gQueryOptions.page.idx = +queryParams.get('pageIdx')
+        gQueryOptions.page.size = +queryParams.get('pageSize')
+    }
     renderQueryParams()
 }
 
 function renderQueryParams() {
     
-    // document.querySelector('.filter-by input[type="text"]').value = gQueryOptions.filterBy.title
-    // document.querySelector('.filter-by select').value = gQueryOptions.filterBy.minRating
+    document.querySelector('.filter-by input[type="text"]').value = gQueryOptions.filterBy.title
+    document.querySelector('.filter-by select').value = gQueryOptions.filterBy.minRating
     
     const sortKeys = Object.keys(gQueryOptions.sortBy)
     const sortBy = sortKeys[0]
@@ -203,10 +239,10 @@ function setQueryParams() {
         queryParams.set('sortDir', gQueryOptions.sortBy[sortKeys[0]])
     }
 
-    // if(gQueryOptions.page) {
-    //     queryParams.set('pageIdx', gQueryOptions.page.idx)
-    //     queryParams.set('pageSize', gQueryOptions.page.size)
-    // }
+    if(gQueryOptions.page) {
+        queryParams.set('pageIdx', gQueryOptions.page.idx)
+        queryParams.set('pageSize', gQueryOptions.page.size)
+    }
 
     const newUrl = 
         window.location.protocol + "//" + 

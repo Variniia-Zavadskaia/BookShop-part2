@@ -22,7 +22,6 @@
                 <input oninput="onSetFilterBy({ title: this.value })" placeholder="Title" type="text">
                 <label>
                     <span>Select Rating:</span>
-        
                     <select  min="1" max="5" value="0" onchange="onSetFilterBy({ minRating: +this.value })">
                         <option value="">Rating</option>
                         <option value="1">1</option>
@@ -39,16 +38,41 @@
                 <select onchange="onSetSortBy()">
                     <option value="">Select Sorting</option>
                     <option value="title">By Title</option>
-                    <option value="minRating">By Ratihg</option>
+                    <option value="rating">By Ratihg</option>
+                    <option value="price">By Price</option>
                 </select>
-                <label>
-                    <span>Descending</span>
-                    <input class="sort-desc" type="checkbox" oninput="onSetSortBy()" />
-                </label>
+                <form>
+                    <label>
+                        <input class="sort-desc" type="radio" name="sort-order" oninput="onSetSortBy()" />
+                        Descending
+                    </label>
+                    <br>
+                    <label>
+                        <input class="sort-desc" type="radio" name="sort-order" oninput="onSetSortBy()" />
+                        Ascending
+                    </label>
+                </form>
             </div>
            
         </fieldset>
         <button onclick="onClearSearch()">Clear</button>
+    </section>
+
+    <section class="filter">
+        <!-- <input class="filter-text" oninput="onSetFilterBy(this)" type="text" placeholder="Search">
+        <button onclick="onClearSearch()">Clear</button> -->
+
+        <button onclick="onAddBook()">Add Book</button>
+        <!-- <button title="Add Car" onclick="onAddBook()">Add Book</button> -->
+    </section>
+
+    <section>
+        <div class="actions">
+            <!-- <button title="Add Car" onclick="onAddCar()">Add Car</button> -->
+            <button title="Prev Page" onclick="onPrevPage()">Prev Page</button>
+            <button title="Next Page" onclick="onNextPage()">Next Page</button>
+        </div>
+        <section class="cars-container"></section>
     </section>
 
     <div class="user-msg">
@@ -56,13 +80,7 @@
     </div>
 
     <main>
-        <section class="filter">
-            <!-- <input class="filter-text" oninput="onSetFilterBy(this)" type="text" placeholder="Search">
-            <button onclick="onClearSearch()">Clear</button> -->
-
-            <button onclick="onAddBook()">Add Book</button>
-
-        </section>
+        
 
         <table>
             <thead>

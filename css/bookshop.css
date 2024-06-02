@@ -68,10 +68,15 @@ main {
     margin-block-end: 10px;
 }
 
-.filter button:last-of-type {
-    margin-inline-start: auto;
+.actions {
+    display: flex;
+	justify-content: space-between;
 }
 
+.sort-by{
+    display: flex;
+    flex-direction: column; 
+}
 .user-msg {
     position: absolute;
     top: 33px;
