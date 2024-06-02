@@ -94,6 +94,7 @@ function _createBook(title, price) {
         id: makeId(),
         title: title,
         price: price,
+        rating: getRandomInt(1, 6),
         // imgUrl: 'lori-ipsi.jpg'
     }
 }

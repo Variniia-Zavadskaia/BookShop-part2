@@ -124,6 +124,10 @@ tr:nth-child(odd) {
     width: 20%;
 }
 
+.rating{
+    width: 10%;
+}
+
 .active {
     width: 50%;
 }

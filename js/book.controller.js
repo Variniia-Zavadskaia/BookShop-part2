@@ -21,9 +21,8 @@ function renderBooks() {
     const strHtmls = books.map(book =>
         `<tr>
             <td class="title">${book.title}</td>
-        
             <td class="price">${book.price}</td>
-
+            <td class="rating">${book.rating}</td>
             <td class="active">
                 <button class="read" onclick="onShowDetails('${book.id}')">Read</button>
                 <button class="update" onclick="onUpdateBook('${book.id}', ${book.price})">Update</button>
