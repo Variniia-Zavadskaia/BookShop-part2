@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bookshop.css">
+    <title>Book Shop</title>
+</head>
+
+<body onload="onInit()">
+
+    <header>
+        <h1>Book Shop</h1>
+    </header>
+
+    <main>
+        <div>
+            <form class="search" onsubmit="onSearchBook(event)">
+                <input type="text" placeholder="Search">
+            </form>
+            <button class="clear" onclick="onClearSearch(event)">Clear</button>
+        </div>
+        <div>
+            <button class="add" onclick="onAddBook()">Add Book</button>
+        </div>
+
+        <table>
+            <thead>
+                <th class="title">Title</th>
+                <th class="price">Price</th>
+                <th class="active">Action</th>
+            </thead>
+            <tbody class="book-list"></tbody>
+        </table>
+
+        <div class="success-modal">
+            <span>Action Succeeded</span>
+            <button onclick="onHideSuccessMsg()">x</button>
+        </div>
+
+        <dialog class="modal">
+            <form method="dialog">
+                <pre></pre>
+                <button>x</button>
+            </form>
+        </dialog>
+
+    </main>
+
+
+    <footer>
+        <p>Coffeerights 2024</p>
+        <p>
+            <span class="stat-name">Expensive:</span>
+            <span class="expensive">0</span>
+            <span class="stat-name">Average:</span>
+            <span class="average">0</span>
+            <span class="stat-name">Cheap:</span>
+            <span class="cheap">0</span>
+        </p>
+    </footer>
+
+    <script src="js/services/util.service.js"></script>
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/book.service.js"></script>
+    <script src="js/book.controller.js"></script>
+</body>
+
+</html>

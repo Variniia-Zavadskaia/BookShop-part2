@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0 1em;
+    line-height: 1.4;
+    color: #777;
+    height: 100%;
+
+}
+
+header,
+footer {
+    display: flex;
+    align-items: center;
+    height: 5vh;
+
+    padding-inline: 10px;
+    background-color: lightblue;
+}
+
+header {
+    margin-block-end: .5rem;
+}
+
+footer {
+    justify-content: space-between;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+
+    min-height: calc(100vh - 10vh - 1.5rem);
+}
+
+div {
+    display: flex;
+    padding: 5px;
+    background-color: rgb(154, 178, 241);
+    margin-block-end: 5px;
+    gap: 5px;
+}
+
+.success-modal {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    z-index: 1;
+    background: rgba(45, 242, 245, 0.416);
+}
+
+.success-modal span {
+    display: flex;
+    position: relative;
+    margin: 100px auto;
+    width: 35%;
+    height: 15%;
+    font-size: 20px;
+    padding: 20px;
+    justify-content: space-between;
+    background: #f9f9f9;
+    border-radius: 3px;
+    box-shadow: 0 5px 15px black;
+}
+
+.success-modal button {
+    display: grid;
+    position: absolute;
+    border: 2px solid lightgrey;
+    box-shadow: 3px 3px 6px rgb(173 173 173);
+    top: 6rem;
+    right: 32%;
+    justify-self: end;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.modal {
+    background-color: lightblue;
+}
+
+table {
+    border: 1px solid #eee;
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+
+td {
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    text-align: left;
+}
+
+tr:nth-child(odd) {
+    background: #fff;
+}
+
+.book-list:nth-child(even) {
+    background: #F7F7F7;
+}
+
+.title {
+    width: 30%;
+}
+
+.price {
+    width: 20%;
+}
+
+.active {
+    width: 50%;
+}
+
+.update {
+    background-color: yellow;
+}
+
+.read {
+    background-color: lightskyblue;
+}
+
+.delete {
+    background-color: orange;
+}
+
+.stat-name {
+    margin-left: 10px;
+}
