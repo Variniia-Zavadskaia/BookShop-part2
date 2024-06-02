@@ -9,6 +9,11 @@ body {
     color: #313030;
     height: 100%;
     overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: calc(100vh - 10vh - 1.5rem);
 }
 
 header,
@@ -75,7 +80,10 @@ main {
 
 .sort-by{
     display: flex;
-    flex-direction: column; 
+    flex-direction: row; 
+}
+.sort-by select{
+    max-height: 20px;
 }
 .user-msg {
     position: absolute;

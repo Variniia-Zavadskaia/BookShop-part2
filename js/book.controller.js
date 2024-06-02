@@ -1,5 +1,5 @@
 'use strict'
-
+var gBookToEdit = null
 const gQueryOptions = {
     filterBy: { title: '', minPrice: 0, minRating: 0 },
     sortBy: {},
@@ -167,20 +167,56 @@ function onUpdateBook(bookId) {
 }
 
 function onAddBook() {
-    var newTitle = prompt('New title:');
-    var newPrice = +prompt('New price:');
+    // var newTitle = prompt('New title:');
+    // var newPrice = +prompt('New price:');
 
-    if (newTitle === '' || newPrice === 0) {
-        alert('Invalid value')
-        return
-    }
+    // if (newTitle === '' || newPrice === 0) {
+    //     alert('Invalid value')
+    //     return
+    // }
 
-    console.log(newTitle, newPrice);
+    // console.log(newTitle, newPrice);
 
-    addBook(newTitle, newPrice);
+    // addBook(newTitle, newPrice);
 
-    renderBooks();
-    showUserMsg(`Book ${bookId} added`);
+    // renderBooks();
+    // showUserMsg(`Book ${bookId} added`);
+
+    const elModal = document.querySelector('.book-edit-modal')
+    elModal.showModal()
+}
+
+function onSaveBook() {
+    const elForm = document.querySelector('.book-edit-modal form')
+
+    const elTitle = elForm.querySelector('.new-title')
+    const elPrice = elForm.querySelector('.new-price')
+    
+    const newTitle = elTitle.value
+    const newPrice = +elPrice.value
+
+    // TODO Save the car
+    // if(gBookToEdit) {
+    //     var book = updateBook(gBookToEdit.id, newTitle, newPrice)
+    //     gBookToEdit = null
+    // } else {
+        var book = addBook(newTitle, newPrice)
+    // }
+
+    resetBookEditModal()
+    renderBooks()
+    // flashMsg(`Car Saved (id: ${car.id})`)
+}
+function resetBookEditModal() {
+    const elForm = document.querySelector('.book-edit-modal form')
+
+    const elTitle = elForm.querySelector('.new-title')
+    const elPrice = elForm.querySelector('.new-price')
+    // const elCarImg = elForm.querySelector('img')
+
+    elTitle.value = ''
+    elPrice.value = 0
+    // elCarImg.src = ''
 }
 
 function onShowDetails(bookId) {
@@ -251,11 +287,18 @@ function setQueryParams() {
 
     window.history.pushState({ path: newUrl }, '', newUrl)
 }
-function showUserMsg(txt) {
-    const elMsg = document.querySelector('.user-msg')
-    const elMsgTxt = document.querySelector('.user-msg p')
+// function showUserMsg(txt) {
+//     const elMsg = document.querySelector('.user-msg')
+//     const elMsgTxt = document.querySelector('.user-msg p')
 
-    elMsgTxt.innerText = txt
-    elMsg.classList.add('shown')
-    setTimeout(() => elMsg.classList.remove('shown'), 2000)
+//     elMsgTxt.innerText = txt
+//     elMsg.classList.add('shown')
+//     setTimeout(() => elMsg.classList.remove('shown'), 2000)
+// }
+
+function onCloseBookEditModal() {
+    // gCarToEdit = null
+
+    document.querySelector('.book-edit-modal').close()
+    resetBookEditModal()
 }

@@ -75,13 +75,11 @@
         <section class="cars-container"></section>
     </section>
 
-    <div class="user-msg">
+    <!-- <div class="user-msg">
         <p>baba</p>
-    </div>
+    </div> -->
 
     <main>
-        
-
         <table>
             <thead>
 
@@ -104,9 +102,29 @@
             </form>
         </dialog>
 
+        <!-- <dialog class="book-details-modal">
+			<h3></h3>
+			<h4>Maximal Speeding <span></span> </h4>
+            <img src="" alt="">
+			<p></p>
+			<button onclick="onCloseCarDetailsModal()">Close</button>
+		</dialog> -->
+
+        <dialog class="book-edit-modal">
+            <form onsubmit="onSaveBook()" method="dialog">
+                <h2>Add Book</h2>
+                <img src="" alt="">
+                <input class="new-title" placeholder="Title" type="text">
+                <input class="new-price" type="number" placeholder="Enter price">
+                <div class="actions">
+                    <button type="button" onclick="onCloseBookEditModal()">Cancel</button>
+                    <button>Save</button>
+                </div>
+            </form>
+        </dialog>
+        
     </main>
-
-
+    
     <footer>
         <p>Coffeerights 2024</p>
         <p>

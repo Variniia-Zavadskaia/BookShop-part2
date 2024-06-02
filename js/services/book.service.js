@@ -93,12 +93,21 @@ function updatePrice(bookId, newPrice) {
     _saveBooksToStorage();
 }
 
-function addBook(newTitle, newPrice) {
-    var newBook = _createBook(newTitle, newPrice);
+function updateBook(bookId, newTitle, newPrice) {
+    const book = gBooks.find(book => book.id === bookId)
+    book.title = newTitle
+    book.price = newPrice
 
-    gBooks.push(newBook);
+    _saveBooksToStorage()
+    return book
+}
+
+function addBook(newTitle, newPrice) {
+    var book = _createBook(newTitle, newPrice);
+    gBooks.push(book);
 
     _saveBooksToStorage();
+    return book
 }
 
 function successMsg(actStr) {
